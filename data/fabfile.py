@@ -14,10 +14,10 @@ from fabric.api import run, put, env, cd
 env.hosts = ['172.23.6.223']
 #env.hosts = ['192.168.0.106']
 env.user = "root"
-env.password = "password"
+env.password = "qibo@cypress"
 
 env.db_user = "qibo"
-env.db_password = "password"
+env.db_password = "qibo@cypress"
 env.db_name = "trackpad"
 
 
@@ -130,6 +130,13 @@ def svn_co_files():
 
     # restart the service
     run("service httpd restart")
+
+
+def install_memcached():
+    run("yum install memcached")
+    run("chkconfig --level 2345 memcached on")
+    run("service memcached start")
+    run("yum install php-pecl-memcache")
 
 
 def set_selinux():
