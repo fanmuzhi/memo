@@ -1,0 +1,415 @@
+%***********************************************************************************************
+% Memo Micro SETTINGS
+%***********************************************************************************************
+\newcommand{\WorkWeek}{1302} % Current Work Week (later we should write a script to decide this)
+\newcommand{\BossName}{Arden Chang} % Boss’s Name
+\newcommand{\BossInitials}{ARDN} % Boss’s Initials
+\newcommand{\Author}{Qiling Bo} % Author’s Name
+\newcommand{\AuthorInitials}{QIBO} % Author’s Cypress Initials
+\newcommand{\MemoNumber}{080} % Memo number
+\newcommand{\Subject}{THE REGULAR EXPRESSION TUTORIAL} % Subject of the memo
+\newcommand{\Category}{regex, test development} % Keywords for the memo
+\newcommand{\Distribution}{PZHO, MZFA, WEIQ, ARDN, RQB, BMOCHINA} % Distribution list for the memo
+
+%***********************************************************************************************
+% Rules
+%***********************************************************************************************
+
+% The following characters play a special role in LaTeX:
+%
+%        # $ % & ~ _ ^ \ { }
+%
+%If you simply want the character to be printed just as any other letter, 
+%include a \ in front of the character. For example, \$ will produce $ in your output. 
+%Or you can use \verb/normal text/ to escape.
+
+%***********************************************************************************************
+% Document SETTINGS
+%***********************************************************************************************
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx} % Required to insert images
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{hyperref} % For hyper link
+
+%***********************************************************************************************
+% MakeTitle
+%***********************************************************************************************
+\renewcommand{\maketitle}
+{
+%	\\
+%	\vspace{-1.25 in}
+	\begin{center}
+	\includegraphics[width=2.5in]{CY.jpg}\\
+	\vspace{5 mm}
+	\large
+	{
+	\textbf{CYPRESS SEMICONDUCTOR CORPORATION}\\
+	\textbf{Internal Correspondence}\\
+	}
+	\vspace{1 mm}
+	\hspace{0.5 in}
+	\begin{tabular}{rl}
+	\bf Date: & \today\ \hspace{2 in}\textbf{WW:\ }\WorkWeek\\
+	\bf To: & \BossName\ (\BossInitials)\\
+	\bf Author: & \Author\ (\AuthorInitials)\\
+	\bf Author File \#: & \AuthorInitials\#\MemoNumber\\
+	\bf Subject: & \Subject\\
+	\bf Category: & \Category\\
+	\bf Distribution: & \Distribution\\
+	\end{tabular}
+	\vspace{3 mm}\\
+	\hrule
+	\end{center}
+	
+	\thispagestyle{firstpage}
+	\pagestyle{normalpage}
+}
+
+
+%***********************************************************************************************
+% Font
+%***********************************************************************************************
+% - Times, Helvetica, Courier (Word Standard...)
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+
+
+
+%***********************************************************************************************
+% Custom Color
+%***********************************************************************************************
+\definecolor{gray}{rgb}{0.9,0.9,0.9} %for source code display
+
+
+
+%***********************************************************************************************
+% Header and Footer
+%***********************************************************************************************
+\usepackage{fancyhdr} % Required for custom headers
+
+\fancypagestyle{firstpage}{%
+  
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{\small{\bf{\thepage}}}
+  \fancyfoot[R]{\Author\ (\AuthorInitials)}
+  \renewcommand{\headrulewidth}{0.0pt}%
+}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{normalpage}{%
+  
+	\fancyhf{} % clear all header and footer fields
+	\fancyhead[C]{\small{\Subject}}
+	\fancyfoot[L]{\small{\bf{\thepage}}}
+	\fancyfoot[R]{\Author\ (\AuthorInitials)}
+	
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	
+	\renewcommand{\headsep}{25pt}
+}
+
+%\AtBeginDocument{
+%    \thispagestyle{firstpage}
+%    }
+
+
+%***********************************************************************************************
+% Source code display Setting
+%***********************************************************************************************
+\usepackage{listings}
+\usepackage{courier}
+
+
+\lstloadlanguages{C}
+\lstset{
+%     language=C,
+     basicstyle=\footnotesize\ttfamily,
+     tabsize=2,                   
+     extendedchars=true,         
+     breaklines=true,            
+     keywordstyle=\color{blue},
+     frame=none, 					% tb-for top and bottom, single-for around         
+     stringstyle=\color{red}\ttfamily, 
+     commentstyle=\color{dkgreen},
+     backgroundcolor=\color{gray},
+     showspaces=false,           
+     showtabs=false,             
+     xleftmargin=17pt,
+     framexleftmargin=17pt,
+     framexrightmargin=5pt,
+     framexbottommargin=4pt,     
+     showstringspaces=false 
+}
+% Creates a new command to include a C source, the first parameter is the filename of the script (without .c), the second parameter is the caption
+\newcommand{\csource}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.c}
+\end{itemize}
+}
+
+
+
+%***********************************************************************************************
+% Document Begin
+%***********************************************************************************************
+\begin{document}
+
+\maketitle
+
+%------------------------------------ %
+%                                     %
+%--------START YOUR MEMO HERE-------- %
+%                                     %
+%------------------------------------ %
+
+\section{Introduction}
+
+Regular expression (AKA regex or regxp) is used everywhere in the programming world and outside. The basic functions for using regular expression are:
+
+\begin{itemize}
+\item[-]
+	Search
+\item[-]
+	Validation
+\item[-]
+	Capture	
+\end{itemize}
+
+The definition of regular expression on wikipedia: \\
+In computing, a regular expression is a specific pattern that provides concise and flexible means to "match" (specify and recognize) strings of text, such as particular characters, words, or patterns of characters. Common abbreviations for "regular expression" include regex and regexp.\\
+A sample of a regex pattern:
+
+\begin{lstlisting}
+	 ^.+@.+\..+$
+\end{lstlisting}
+
+This is an basic email address expression, it can match almost all email addresses like "qibo@cypress.com" or "boqiling@gmail.com". But it is not a strict regex, for example, it also can match "@@@@cypress.com" or "qibo@this.isaawesomeinvalidemailaddress" which are not valid email addresses. So if we need a more strict regex, we can rewrite the pattern, to define the number of character "@" must be 1, the characters after "." cannot be longer than 4 (for example, qibo@cypress.info is valid), etc.,etc.\\
+And for test software development, the regex can help use to define a valid serial number (for example, 11600202\&\^\*YYA is not a valid serial number), to capture the raw count (for example, 9999 cannot be valid raw count number), and many other functions. 
+
+\section{Development Environment}
+
+There are thousands of tools we can use to develop the regex pattern for different programming language like C\#, JavaScript, PHP or Python. And for each programming language, the basic regex pattern are almost the same, but still has a little difference. \\
+For this memo, I tried the regex pattern on http://www.pythonregex.com/, because no installation needed and simply to run.
+
+\section{Regex Grammar}
+
+First of all, the most confusing part of Regex is the special mean of the characters and the escape of the character. For example, in Regex, a single dot "." means any character include "." itself, but when we try to search the exact ".", we need escape the special meaning of it, we use \verb/"\." / as the \verb/\ /is the escape character in Regex. But in the programming language, \verb/\ / is a special character in the string, for example:
+
+\begin{lstlisting}
+r = "\n";
+print r;  #won't print a \n, but print a blank line.
+
+r = "\\n";
+print r; #now it prints a \n.
+\end{lstlisting} 
+
+So when we try to search the \verb/"\n"/, we need write the pattern as \verb/"\\\\n"/. And
+it is so confusing, so there is a simple way defined in each language, for example:
+
+\begin{lstlisting}
+r = @"\n"; 				// use a "@" for C#.
+Console.Writeline(r);	// it prints a \n.
+
+r = r"\n"					# use a "r" for Python. 
+print r						# it prints \n.
+\end{lstlisting}
+
+Here I summarised some basic characters in the following tables for Regex.\\
+Please check the tables in appendix.
+
+
+
+
+\section{Examples}
+\subsection{Email Address}
+We started with an email address pattern which is not good. Now we can generate a better one. For example, we can define the characters behind /verb/"."/ must have a length from 2 to 4, and the character for the name or company name must be an alphanumeric character.
+\begin{lstlisting}
+^\w+@\w+\.[a-zA-Z]{2,4}$
+\end{lstlisting}
+The problem in this pattern is, the \verb/\w / doesn't include special characters like "\verb/. /", so user name "qiling.bo" is not valid, but "qiling\_bo" is. I think we can still get the problem when we try to register on some websites. And another problem is, the user name start with a number is valid here, we can improve that too.
+\begin{lstlisting}
+^[a-zA-Z][a-zA-Z0-9_.-]+@\w+\.[a-zA-Z]{2,4}$
+\end{lstlisting}
+This is much better. But in some particular case, someone may have a email with a second domain name, it is not valid, for example, qibo@cypress.trackpad.com. So for these cases, we still need improve the regex pattern.\\
+
+\subsection{Serial Number}
+The first usage of regex in testing, is validate the serial number. For trackpad, the serialnumber is defined as:
+
+\begin{lstlisting}
+PPPPPPrrRRYYWWMNNNn
+
+PPPPP = Part Type, the first bit is 0 or 1 for with or without Mylar.
+rr = revision
+RR = Arena MPN Revision
+YY = Year
+WW = Week
+M = Manufacture site
+NNN = panel number
+n = sequence number on the panel
+\end{lstlisting}
+
+And the pattern can be written as:
+\begin{lstlisting}
+[01]\d{4}[01]\d[01]\d(?:09|1[0-5])(?:[0-4][1-9]|[5][0-3])[0-4][a-zA-Z0-9]{3}[1-8]
+\end{lstlisting}
+
+\section{Appendix}
+
+%==========================
+%	Table Meta Charater
+%==========================
+\begin{table}[ht]
+\caption{Meta Character}
+% title of Table
+\centering
+% used for centering table
+\begin{tabular}{l p{8cm}}
+% centered columns (4 columns)
+\hline\hline
+%inserts double horizontal lines
+Char & Description \\[0.5ex]
+% inserts table
+%heading
+\hline
+% inserts single horizontal line
+\verb/ .          / & Matches any single character except newline. \\
+\verb/ [...]/ & Matches a single character that is contained within the brackets.\\
+\verb/ [^...]/ & Matches a single character that is not contained within the brackets.\\
+\verb/ \w / & Matches alphanumeric characters plus "\_", equals to \verb/[A-Za-z0-9\_]/. \\
+\verb/ \W / & Matches a single character which is not alphanumeric characters plus "\_", equals to \verb/[^A-Za-z0-9_]/. \\
+\verb/ \s / & Matches a single whitespace. \\
+\verb/ \S / & Matches a single character which is not whitespace. \\
+\verb/ \d / & Matches a single digit, equals to \verb/[0-9]/.\\
+\verb/ \D / & Matches a single character which is not digit, equals to \verb/[^0-9]/.\\
+% inserting body of the table
+% [1ex] adds vertical space
+\hline
+%inserts single line
+\end{tabular}
+\label{table:mc}
+% is used to refer this table in the text
+\end{table}
+
+%==========================
+%	Table Virtual Charater
+%==========================
+\begin{table}[ht]
+\caption{Virtual Character}
+% title of Table
+\centering
+% used for centering table
+\begin{tabular}{l p{8cm} }
+% centered columns (4 columns)
+\hline\hline
+%inserts double horizontal lines
+Char & Description \\[0.5ex]
+% inserts table
+%heading
+\hline
+% inserts single horizontal line
+\verb/ ^           / & Presents the starting position within the string. \\
+\verb/ $ / & Presents the ending position of the string.\\
+\verb/ \n / & Presents a Newline. \\
+\verb/ \r / & Presents a Return Carriage. \\
+\verb/ \t / & Presents a Tab. \\
+\verb/ \b / & Presents a word boundary. That is, match the position between a \verb/\w/ character and a \verb/\W/ character.\\
+% inserting body of the table
+% [1ex] adds vertical space
+\hline
+%inserts single line
+\end{tabular}
+\label{table:vc}
+% is used to refer this table in the text
+\end{table}
+
+%=============================
+%	Table Repetition Charater
+%=============================
+\begin{table}[ht]
+\caption{Repetition Character}
+% title of Table
+\centering
+% used for centering table
+\begin{tabular}{l p{8cm}}
+% centered columns (4 columns)
+\hline\hline
+%inserts double horizontal lines
+Char & Description \\[0.5ex]
+% inserts table
+%heading
+\hline
+% inserts single horizontal line
+\verb/{n,m}        / & Matches the previous item at least n times but no more than m times.\\
+\verb/{n}/ & Matches the previous item exactly n times.\\
+\verb/{n,}/ & Matches the previous item n or more times.\\
+\verb/?/ & Matches zero or one occurrences of the previous item. Equivalent to \verb/{0,1}/. \\
+\verb/+/ & Matches one or more occurrences of the previous item. Equivalent to \verb/{1,}/.\\
+\verb/*/ & Matches zero or more occurrences of the previous item. Equivalent to \verb/{0,}/.\\
+
+% inserting body of the table
+% [1ex] adds vertical space
+\hline
+%inserts single line
+\end{tabular}
+\label{table:rc}
+% is used to refer this table in the text
+\end{table}
+
+%=============================
+%	Table Group Charater
+%=============================
+\begin{table}[ht]
+\caption{Group Character}
+% title of Table
+\centering
+% used for centering table
+\begin{tabular}{l p{8cm}}
+% centered columns (4 columns)
+\hline\hline
+%inserts double horizontal lines
+Char & Description \\[0.5ex]
+% inserts table
+%heading
+\hline
+% inserts single horizontal line
+\verb/(...)/ & Matches whatever regular expression is inside the parentheses, and capture the matched string.\\
+\verb/|/ & Alternation. Match either the subexpressions to the left or the
+subexpression to the right.\\
+\verb/(?P<name>...)/ & The same as \verb/(...)/, and put the match string into the group named "name".\\
+\verb/(?:...)/ & The same as \verb/(...)/, but doesn't capture the string.\\
+\verb/(?=...)/ & positive Lookahead assertion, and doesn’t consume any of the string. For example, \verb/Isaac (?=Asimov)/ will match \verb/'Isaac '/ only if it’s followed by \verb/'Asimov'/.\\
+\verb/(?<=...)/ & positive lookbehind assertion.\\
+
+% inserting body of the table
+% [1ex] adds vertical space
+\hline
+%inserts single line
+\end{tabular}
+\label{table:gc}
+% is used to refer this table in the text
+\end{table}
+
+
+
+%------------------------------------ %
+%                                     %
+%--------END OF YOUR MEMO HERE------- %
+%                                     %
+%------------------------------------ %
+
+
+
+\end{document}
+%***********************************************************************************************
+% Document End
+%***********************************************************************************************
+
+

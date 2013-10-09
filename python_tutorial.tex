@@ -1,0 +1,320 @@
+%***********************************************************************************************
+% Memo Micro SETTINGS
+%***********************************************************************************************
+\newcommand{\WorkWeek}{1307} % Current Work Week (later we should write a script to decide this)
+\newcommand{\BossName}{Arden Chang} % Boss's Name
+\newcommand{\BossInitials}{ARDN} % Boss's Initials
+\newcommand{\Author}{Qiling Bo} % Author's Name
+\newcommand{\AuthorInitials}{QIBO} % Author's Cypress Initials
+\newcommand{\MemoNumber}{087} % Memo number
+\newcommand{\Subject}{} % Subject of the memo
+\newcommand{\Category}{} % Keywords for the memo
+\newcommand{\Distribution}{PZHO, MZFA, WEIQ, ARDN, RQB, BMOCHINA} % Distribution list for the memo
+
+%***********************************************************************************************
+% Rules
+%***********************************************************************************************
+
+% The following characters play a special role in LaTeX:
+%
+%        # $ % & ~ _ ^ \ { }
+%
+%If you simply want the character to be printed just as any other letter, 
+%include a \ in front of the character. For example, \$ will produce $ in your output. 
+
+%***********************************************************************************************
+% Document SETTINGS
+%***********************************************************************************************
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx} % Required to insert images
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{hyperref} % For hyper link
+
+%***********************************************************************************************
+% Make Title
+%***********************************************************************************************
+\renewcommand{\maketitle}
+{
+%   \\
+%   \vspace{-1.25 in}
+    \begin{center}
+    \includegraphics[width=2.5in]{CY.jpg}\\
+    \vspace{5 mm}
+    \large
+    {
+    \textbf{CYPRESS SEMICONDUCTOR CORPORATION}\\
+    \textbf{Internal Correspondence}\\
+    }
+    \vspace{1 mm}
+    \hspace{0.5 in}
+    \begin{tabular}{rl}
+    \bf Date: & \today\ \hspace{2 in}\textbf{WW:\ }\WorkWeek\\
+    \bf To: & \BossName\ (\BossInitials)\\
+    \bf Author: & \Author\ (\AuthorInitials)\\
+    \bf Author File \#: & \AuthorInitials\#\MemoNumber\\
+    \bf Subject: & \Subject\\
+    \bf Category: & \Category\\
+    \bf Distribution: & \Distribution\\
+    \end{tabular}
+    \vspace{3 mm}\\
+    \hrule
+    \end{center}
+    
+    \thispagestyle{firstpage}
+    \pagestyle{normalpage}
+}
+
+
+%***********************************************************************************************
+% Font
+%***********************************************************************************************
+% - Times, Helvetica, Courier (Word Standard...)
+\usepackage{mathptmx}
+
+%***********************************************************************************************
+% Custom Color
+%***********************************************************************************************
+\definecolor{gray}{rgb}{0.9,0.9,0.9} %for source code display
+\definecolor{dkgreen}{rgb}{0.1333,0.5451,0.1333}
+
+%***********************************************************************************************
+% Header and Footer
+%***********************************************************************************************
+\usepackage{fancyhdr} % Required for custom headers
+
+\fancypagestyle{firstpage}{%
+  
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{\small{\bf{\thepage}}}
+  \fancyfoot[R]{\Author\ (\AuthorInitials)}
+  \renewcommand{\headrulewidth}{0.0pt}%
+}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{normalpage}{%
+  
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[C]{\small{\Subject}}
+    \fancyfoot[L]{\small{\bf{\thepage}}}
+    \fancyfoot[R]{\Author\ (\AuthorInitials)}
+    
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    
+    \renewcommand{\headsep}{25pt}
+}
+
+%\AtBeginDocument{
+%    \thispagestyle{firstpage}
+%    }
+
+
+%***********************************************************************************************
+% Source code display Setting
+%***********************************************************************************************
+\usepackage{listings}
+\usepackage{courier}
+
+
+\lstloadlanguages{Python}
+\lstset{
+     language=Python,
+     keywords={from,import,break,case,catch,continue,else,elseif,end,for,def,global,if,otherwise,persistent,return,switch,try,not,while,True,False,in},
+     basicstyle=\footnotesize\ttfamily,
+     tabsize=2,                   
+     extendedchars=true,         
+     breaklines=true,            
+     keywordstyle=\color{blue},
+     frame=none,                    % tb-for top and bottom, single-for around         
+     stringstyle=\color{red}\ttfamily, 
+     commentstyle=\color{dkgreen},
+     backgroundcolor=\color{gray},
+     showspaces=false,           
+     showtabs=false,             
+     xleftmargin=17pt,
+     framexleftmargin=17pt,
+     framexrightmargin=5pt,
+     framexbottommargin=4pt,     
+     showstringspaces=false 
+}
+% Creates a new command to include a C source, the first parameter is the
+% filename of the script (without .c), the second parameter is the caption
+\newcommand{\PythonSource}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+\end{itemize}
+}
+
+
+
+%***********************************************************************************************
+% Document Begin
+%***********************************************************************************************
+\begin{document}
+
+\maketitle
+
+%------------------------------------ %
+%                                     %
+%--------START YOUR MEMO HERE-------- %
+%                                     %
+%------------------------------------ %
+
+\section{Introduction}
+This memo documented the python programming language tutorial. The benefits for using Python for
+testing are: 
+\begin{itemize}
+\item
+Add scripts as interfaces/plug-ins for structured program written in C\#.
+\item
+To quickly analyze the DUTs and the test data on site with simple script.
+\item
+Use Django to generate the data visulization of test data.
+\end{itemize}
+For Python scripts, we can use git-hub or other online service to manage the
+script code.  Clone the code in different manufacturing sites.
+And keep the scripts synchronize with the changes we make.
+Python is a script program which is similar to Perl and PHP. In this tutorial,
+we will discuss the
+items including: 
+\begin{itemize}
+\item
+Basics. Cover the basic definition of data types, collections, modules of python.
+\item
+Built in functions. Cover the python built in functions like \verb/str()/, \verb/type()/.
+\item
+Magic functions in class. Cover the special functions built for class, like \verb/__init__()/
+\item
+Iteration. Important keywords for python like "\verb/yield/".
+\item
+Built in modules. Cover the python built in modules like os, re, sys.
+\end{itemize}
+
+\section{Basics}
+
+\subsection{Data Types}
+\begin{itemize}
+\item
+\verb/__builtin__/ numeric data types: \verb/int/, \verb/float/, \verb/long/ and \verb/complex/.
+The corresponding built-in functions for these data types are:
+\verb/int()/, \verb/float()/, \verb/long()/ and
+\verb/complex()/.  And 2 extra built-in functions \verb/hex()/ and \verb/bin()/.
+Usage example:
+
+\begin{lstlisting}
+In [1]: i = 100     # define an int variable
+
+In [2]: print(i)    # get the value
+Out[2]: 100
+
+In [3]: type(i)     # use type() to get the variable type, equals to i.__class__
+Out[3]: int
+
+In [4]: hex(i)      # use hex() to convert to a hexadecimal string, equals to i.__hex__()
+Out[4]: '0x64'
+
+In [5]: bin(i)      # use bin() to convert to a binary string
+Out[5]: '0b1100100' # a binary data starts with '0b' or '0B', we can define the int with i = 0b1111.
+
+In [6]: f = 2.0     # define a float variable
+
+In [7]: type(f)    # get the type
+Out[7]: float
+
+In [13]: i * 10000000000    
+Out[13]: 1000000000000L     # a long data ends with a 'L', we can define the long with i = 100L.
+
+In [14]: c = 1.0+2.0j       # define a complex variable
+
+In [15]: c.real     # get the real part
+Out[15]: 1.0
+
+In [16]: c.imag    # get the imag part
+Out[16]: 2.0
+\end{lstlisting}
+
+And there are also keywords in Python corresponding to the data types:
+\verb/int/, \verb/float/, \verb/long/ and \verb/complex/.
+
+\begin{lstlisting}
+In [22]: if type(100L) is long:
+    ...:     print("100L is long")
+    ...: 
+100L is long
+
+In [23]: if type(1+2j) is complex:
+    ...:     print("1+2j is complex")
+    ...: 
+1+2j is complex
+\end{lstlisting}
+
+\item
+ \verb/__builtin__/ string
+
+\item
+\verb/__builtin__/ constants: \verb/None/, \verb/True/, \verb/False/. Empty string, tuple, list
+or dictionary is also taken as False:
+
+\begin{lstlisting}
+IN[1]: if not "": print("\"\" is not true")
+OUT[2]: "" is not true 
+IN[2]: if not (): print("() is not true")
+OUT[2]:() is not true
+\end{lstlisting}
+
+and 3 more constants, \verb/__debug__/, \verb/NotImplemented/ and \verb/Ellipsis/.
+\end{itemize}
+
+\subsection{Collections}
+tuple, list, dictionary(hash table). 
+The builtin function range() returns a list
+zip() and zip(*[]), (zip and unzip)
+
+\subsection{Function and Class}
+function and class best practice.   
+
+\subsection{Exception}
+try except else and finally. Raise Error.   
+
+\subsection{Modules}
+import, from directory import.  
+
+\subsection{Test}
+import doctest
+    doctest.testmod()
+
+\section{Built in functions}
+str()
+type()
+
+\section{Magic functions}
+\verb/__init__()/
+\verb/__iter__()/
+
+\section{Iteration}
+yield
+
+\section{Built in modules}
+import re
+import os
+import sys
+
+%------------------------------------ %
+%                                     %
+%--------END OF YOUR MEMO HERE------- %
+%                                     %
+%------------------------------------ %
+
+
+
+\end{document}
+%***********************************************************************************************
+% Document End
+%***********************************************************************************************

@@ -1,0 +1,361 @@
+%***********************************************************************************************
+% Memo Micro SETTINGS
+%***********************************************************************************************
+\newcommand{\WorkWeek}{1324} % Current Work Week (later we should write a script to decide this)
+\newcommand{\BossName}{Arden Chang} % Boss's Name
+\newcommand{\BossInitials}{ARDN} % Boss's Initials
+\newcommand{\Author}{Qiling Bo} % Author's Name
+\newcommand{\AuthorInitials}{QIBO} % Author's Cypress Initials
+\newcommand{\MemoNumber}{115} % Memo number
+\newcommand{\Subject}{PROGRAM LOGS} % Subject of the memo
+\newcommand{\Category}{Test Development} % Keywords for the memo
+\newcommand{\Distribution}{PZHO, MZFA, WEIQ, ARDN, RQB, BMOCHINA} % Distribution list for the memo
+
+%***********************************************************************************************
+% Rules
+%***********************************************************************************************
+
+% The following characters play a special role in LaTeX:
+%
+%        # $ % & ~ _ ^ \ { }
+%
+%If you simply want the character to be printed just as any other letter, 
+%include a \ in front of the character. For example, \$ will produce $ in your output. 
+
+%***********************************************************************************************
+% Document SETTINGS
+%***********************************************************************************************
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx} % Required to insert images
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{hyperref} % For hyper link
+\usepackage{float}
+\setlength{\headheight}{11pt}
+\usepackage{subfigure}
+
+
+%***********************************************************************************************
+% Make Title
+%***********************************************************************************************
+\renewcommand{\maketitle}
+{
+%   \\
+%   \vspace{-1.25 in}
+    \begin{center}
+    \includegraphics[width=2.5in]{CY.jpg}\\
+    \vspace{5 mm}
+    \large
+    {
+    \textbf{CYPRESS SEMICONDUCTOR CORPORATION}\\
+    \textbf{Internal Correspondence}\\
+    }
+    \vspace{1 mm}
+    \hspace{0.5 in}
+    \begin{tabular}{rl}
+    \bf Date: & \today\ \hspace{2 in}\textbf{WW:\ }\WorkWeek\\
+    \bf To: & \BossName\ (\BossInitials)\\
+    \bf Author: & \Author\ (\AuthorInitials)\\
+    \bf Author File \#: & \AuthorInitials\#\MemoNumber\\
+    \bf Subject: & \Subject\\
+    \bf Category: & \Category\\
+    \bf Distribution: & \Distribution\\
+    \end{tabular}
+    \vspace{3 mm}\\
+    \hrule
+    \end{center}
+    
+    \thispagestyle{firstpage}
+    \pagestyle{normalpage}
+}
+
+
+%***********************************************************************************************
+% Font
+%***********************************************************************************************
+% - Helvetica
+%\usepackage[scaled]{helvet}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+%\usepackage[T1]{fontenc}
+
+% - Times
+%\usepackage{fontspec}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+%\setmonofont{DejaVu Sans Mono}
+
+%***********************************************************************************************
+% Custom Color
+%***********************************************************************************************
+\definecolor{gray}{rgb}{0.9,0.9,0.9} %for source code display
+\definecolor{dkgreen}{rgb}{0.1333,0.5451,0.1333}
+
+%***********************************************************************************************
+% Header and Footer
+%***********************************************************************************************
+\usepackage{fancyhdr} % Required for custom headers
+
+\fancypagestyle{firstpage}{%
+  
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{\small{\bf{\thepage}}}
+  \fancyfoot[R]{\Author\ (\AuthorInitials)}
+  \renewcommand{\headrulewidth}{0.0pt}%
+}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{normalpage}{%
+  
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[C]{\small{\Subject}}
+    \fancyfoot[L]{\small{\bf{\thepage}}}
+    \fancyfoot[R]{\Author\ (\AuthorInitials)}
+    
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    
+    \renewcommand{\headsep}{25pt}
+}
+
+%\AtBeginDocument{
+%    \thispagestyle{firstpage}
+%    }
+
+%***********************************************************************************************
+% Source code display Setting
+%***********************************************************************************************
+\usepackage{listings}
+\usepackage{courier}
+
+\lstloadlanguages{Python}
+\lstset{
+     language=Python,
+     keywords={from,import,break,case,catch,continue,else,elseif,end,for,def,global,if,otherwise,persistent,return,switch,try,not,while,True,False,in},
+     basicstyle=\footnotesize\ttfamily,
+     tabsize=2,                   
+     extendedchars=true,         
+     breaklines=true,            
+     keywordstyle=\color{blue},
+     frame=none,                    % tb-for top and bottom, single-for around         
+     stringstyle=\color{red}\ttfamily, 
+     commentstyle=\color{dkgreen},
+     backgroundcolor=\color{gray},
+     showspaces=false,           
+     showtabs=false,             
+     xleftmargin=17pt,
+     framexleftmargin=17pt,
+     framexrightmargin=5pt,
+     framexbottommargin=4pt,     
+     showstringspaces=false 
+}
+% Creates a new command to include a C source, the first parameter is the filename of the script (without .c), the second parameter is the caption
+\newcommand{\PythonSource}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+\end{itemize}
+}
+
+%***********************************************************************************************
+% Figure 
+%***********************************************************************************************
+%\MySubFigureTwo{./data/IDAC_hist.pdf}{./data/IDAC_hist_2.pdf}{Dynamic}{HuaXin}{0.2in}{IDAC
+%Histogram}{fig1}{0.5}
+\newcommand{\MySubFigureTwo}[8]
+{
+    \vspace{#5}
+    \begin{figure}[H]
+    \centering
+    \subfigure[#3]
+    {
+        \includegraphics[scale=#8]{#1}
+        \label{fig:a#7}
+    }
+    \subfigure[#4]
+    {
+        \includegraphics[scale=#8]{#2}
+        \label{fig:b#7}
+    }
+    \caption[#6]{#6}
+    \label{fig:#7}
+    \end{figure}
+}
+
+
+%***********************************************************************************************
+% Document Begin
+%***********************************************************************************************
+\begin{document}
+
+\maketitle
+
+%------------------------------------ %
+%                                     %
+%--------START YOUR MEMO HERE-------- %
+%                                     %
+%------------------------------------ %
+\section{INTRODUCTION}
+The text logs of program bugs and errors are used very often in test program, sometime we print the information on the screen.
+But in production, we prefer to save the debug information in the text logs than printing it.
+This memo documented the usage and method to read and write program logs, including the program we installed and the test program we coded.
+
+\section{DETAIL}
+\subsection{Text Logs in Test Program}
+In this section we introduced the test program logs we coded in C\# and python, for TMT, TPT currently and MTK in the future.
+Each line of the text log contains 3 columns, "Executed Time" + "Error Level" + "Error Message".
+For example: 
+\begin{lstlisting}
+130605 13:54:08 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed. 
+\end{lstlisting}
+This is a default error message of MySQL, "Executed Time" is "130606 13:54:08", "Error Level" is "ERROR" and "Error Message" is "Plugin...failed.".
+So we can follow the information to debug our program and find a solution of our test program problem.
+We listed 2 examples of how to write the program logs in C\# and python, as follow.
+\begin{itemize}
+\item
+C\# code example:
+\begin{lstlisting}
+    class Log
+    {
+        public static string content;
+        public static string sectionContent;
+
+        public static void info(string text)
+        {
+            writeLog("INFO ", text);
+        }
+
+        public static void warning(string text)
+        {
+            writeLog("WARN ", text);
+        }
+
+        public static void error(string text)
+        {
+            writeLog("ERROR", text);
+        }
+
+        public static void error(string text, bool die)
+        {
+            writeLog("ERROR", text);
+            if (die == true)
+                Process.GetCurrentProcess().Kill();
+        }
+
+        private static void writeLog(string type, string error)
+        {
+            DateTime myTimeStamp = DateTime.Now;
+            string date = myTimeStamp.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string prefix = "[" + date + "] " + type.ToUpper() + " : ";
+
+            content = content + prefix + error + "\r\n";
+            sectionContent = sectionContent + prefix + error + "\r\n";
+
+            StreamWriter myFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\ErrorMessage.log", true);
+            myFile.Write(prefix + error + "\r\n");
+            myFile.Close();
+        }
+    }
+\end{lstlisting}
+\item
+Python code example:
+\begin{lstlisting}
+#!/usr/bin/env python
+# encoding: utf-8
+
+import os
+import logging
+
+LOG_FILE = 'log.txt'
+
+def init_log():
+    if os.path.isfile(LOG_FILE):
+        os.remove(LOG_FILE)     # remove the log file
+
+    logger = logging.getLogger()
+    hdlr = logging.FileHandler(LOG_FILE)
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr)
+    logger.setLevel(logging.NOTSET)
+
+
+def main():
+    init_log()
+    logging.info("test info")
+    logging.error("error info")
+    logging.debug("debug info")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\end{itemize}
+
+
+\subsection{Text Logs in LAMP}
+In this section we introduced the debug logs we used in our database system. 
+We can use these log files to debug our program and used the same formmat for our developed test programs.
+\subsubsection{MySQL}
+\begin{itemize}
+    \item
+    Error log. MySQL error log is defined in my.cnf, log-error=YourPath.log.\\
+    Default location of error log is:
+    \begin{lstlisting}
+    /var/log/mysqld.log
+    \end{lstlisting}
+    \item
+    Slow Query log. MySQL slow query log is defined in my.cnf, slow\_query\_log.
+    Default location of slow query log is:
+    \begin{lstlisting}
+    /var/run/mysqld/mysqld-slow.log
+    \end{lstlisting}
+\end{itemize}
+
+\subsubsection{PHP}
+PHP error log is defined in php.ini, error\_log=YourPath.log. \\
+Default location of php error log is:
+\begin{lstlisting}
+error_log=php_errors.log
+\end{lstlisting}
+Notice that the default setting of error recording is turned off, so we need turn it on and set a valid path to it.
+
+\subsubsection{Apache}
+\begin{itemize}
+    \item
+    Default location of apache error log:
+    \begin{lstlisting}
+    /var/log/httpd/error.log
+    \end{lstlisting}
+    \item
+    Default location of apache access log:
+    \begin{lstlisting}
+    /var/log/httpd/access.log
+    \end{lstlisting}
+\end{itemize}
+
+\subsubsection{SELinux}
+The SELinux permission log is recorded in audit.log, with a type=AVC, we can list the log and grep the AVC lines.
+We can find the permission error information at:
+\begin{lstlisting}
+/var/log/audit/audit.log
+$less /var/log/audit/audit.log | grep AVC
+\end{lstlisting}
+
+%\MySubFigureTwo{pic1path}{pic2path}{pic1comment}{pic2comment}{0.2in}{title}{fig1}{0.5}
+
+%------------------------------------ %
+%                                     %
+%--------END OF YOUR MEMO HERE------- %
+%                                     %
+%------------------------------------ %
+
+\end{document}
+%***********************************************************************************************
+% Document End
+%***********************************************************************************************

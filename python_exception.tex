@@ -1,0 +1,503 @@
+%***********************************************************************************************
+% Memo Micro SETTINGS
+%***********************************************************************************************
+\newcommand{\WorkWeek}{1332} % Current Work Week (later we should write a script to decide this)
+\newcommand{\BossName}{Arden Chang} % Boss's Name
+\newcommand{\BossInitials}{ARDN} % Boss's Initials
+\newcommand{\Author}{Qiling Bo} % Author's Name
+\newcommand{\AuthorInitials}{QIBO} % Author's Cypress Initials
+\newcommand{\MemoNumber}{134} % Memo number
+\newcommand{\Subject}{Python Exceptions} % Subject of the memo
+\newcommand{\Category}{Test development} % Keywords for the memo
+\newcommand{\Distribution}{PZHO, MZFA, WEIQ, ARDN, RQB, BMOCHINA} % Distribution list for the memo
+
+%***********************************************************************************************
+% Rules
+%***********************************************************************************************
+
+% The following characters play a special role in LaTeX:
+%
+%        # $ % & ~ _ ^ \ { }
+%
+%If you simply want the character to be printed just as any other letter, 
+%include a \ in front of the character. For example, \$ will produce $ in your output. 
+
+%***********************************************************************************************
+% Document SETTINGS
+%***********************************************************************************************
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx} % Required to insert images
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{hyperref} % For hyper link
+\usepackage{float}
+\setlength{\headheight}{11pt}
+\usepackage{subfigure}
+
+
+%***********************************************************************************************
+% Make Title
+%***********************************************************************************************
+\renewcommand{\maketitle}
+{
+%   \\
+%   \vspace{-1.25 in}
+    \begin{center}
+    \includegraphics[width=2.5in]{CY.jpg}\\
+    \vspace{5 mm}
+    \large
+    {
+    \textbf{CYPRESS SEMICONDUCTOR CORPORATION}\\
+    \textbf{Internal Correspondence}\\
+    }
+    \vspace{1 mm}
+    \hspace{0.5 in}
+    \begin{tabular}{rl}
+    \bf Date: & \today\ \hspace{2 in}\textbf{WW:\ }\WorkWeek\\
+    \bf To: & \BossName\ (\BossInitials)\\
+    \bf Author: & \Author\ (\AuthorInitials)\\
+    \bf Author File \#: & \AuthorInitials\#\MemoNumber\\
+    \bf Subject: & \Subject\\
+    \bf Category: & \Category\\
+    \bf Distribution: & \Distribution\\
+    \end{tabular}
+    \vspace{3 mm}\\
+    \hrule
+    \end{center}
+    
+    \thispagestyle{firstpage}
+    \pagestyle{normalpage}
+}
+
+
+%***********************************************************************************************
+% Font
+%***********************************************************************************************
+% - Helvetica
+%\usepackage[scaled]{helvet}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+%\usepackage[T1]{fontenc}
+
+% - Times
+%\usepackage{fontspec}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+%\setmonofont{DejaVu Sans Mono}
+
+%***********************************************************************************************
+% Custom Color
+%***********************************************************************************************
+\definecolor{gray}{rgb}{0.9,0.9,0.9} %for source code display
+\definecolor{dkgreen}{rgb}{0.1333,0.5451,0.1333}
+
+%***********************************************************************************************
+% Header and Footer
+%***********************************************************************************************
+\usepackage{fancyhdr} % Required for custom headers
+
+\fancypagestyle{firstpage}{%
+  
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{\small{\bf{\thepage}}}
+  \fancyfoot[R]{\Author\ (\AuthorInitials)}
+  \renewcommand{\headrulewidth}{0.0pt}%
+}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{normalpage}{%
+  
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[C]{\small{\Subject}}
+    \fancyfoot[L]{\small{\bf{\thepage}}}
+    \fancyfoot[R]{\Author\ (\AuthorInitials)}
+    
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    
+    \renewcommand{\headsep}{25pt}
+}
+
+%\AtBeginDocument{
+%    \thispagestyle{firstpage}
+%    }
+
+%***********************************************************************************************
+% Source code display Setting
+%***********************************************************************************************
+\usepackage{listings}
+\usepackage{courier}
+
+\lstloadlanguages{Python}
+\lstset{
+     language=Python,
+     keywords={from,import,break,case,catch,continue,else,elseif,end,for,def,global,if,otherwise,persistent,return,switch,try,not,while,True,False,in},
+     basicstyle=\footnotesize\ttfamily,
+     tabsize=2,                   
+     extendedchars=true,         
+     breaklines=true,            
+     keywordstyle=\color{blue},
+     frame=none,                    % tb-for top and bottom, single-for around         
+     stringstyle=\color{red}\ttfamily, 
+     commentstyle=\color{dkgreen},
+     backgroundcolor=\color{gray},
+     showspaces=false,           
+     showtabs=false,             
+     xleftmargin=17pt,
+     framexleftmargin=17pt,
+     framexrightmargin=5pt,
+     framexbottommargin=4pt,     
+     showstringspaces=false 
+}
+% Creates a new command to include a C source, the first parameter is the filename of the script (without .c), the second parameter is the caption
+\newcommand{\PythonSource}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+\end{itemize}
+}
+
+%***********************************************************************************************
+% Figure 
+%***********************************************************************************************
+%\MySubFigureTwo{./data/IDAC_hist.pdf}{./data/IDAC_hist_2.pdf}{Dynamic}{HuaXin}{0.2in}{IDAC
+%Histogram}{fig1}{0.5}
+\newcommand{\MySubFigureTwo}[8]
+{
+    \vspace{#5}
+    \begin{figure}[H]
+    \centering
+    \subfigure[#3]
+    {
+        \includegraphics[scale=#8]{#1}
+        \label{fig:a#7}
+    }
+    \subfigure[#4]
+    {
+        \includegraphics[scale=#8]{#2}
+        \label{fig:b#7}
+    }
+    \caption[#6]{#6}
+    \label{fig:#7}
+    \end{figure}
+}
+
+
+%***********************************************************************************************
+% Document Begin
+%***********************************************************************************************
+\begin{document}
+
+\maketitle
+
+%------------------------------------ %
+%                                     %
+%--------START YOUR MEMO HERE-------- %
+%                                     %
+%------------------------------------ %
+\section{INTRODUCTION}
+This is the memo for python exceptions best practise. \\
+Exceptions are also called program errors, and error handling is very important for program's robustness and reliability.
+I summarized 3 types of program errors for a test program:
+\begin{itemize}
+    \item
+    Syntax Errors. The basic error types for errors like typo issues in programming, or a variable is not defined.
+    \item
+    Logic Mistakes. Unexpected errors, also called bugs, the program is running without reporting any issue, but the logic is not right. 
+    \item
+    Expected Errors. User defined errors, for example, user inputs a non-valid character, or communication lost.
+\end{itemize}
+For syntax errors, it can be found during the coding and unit testing. 
+For logic mistakes, it also can be found during the unit testing, and logging the errors. It is not easy to debug if we have more than 3 code layers. 
+For expected errors, we need have a complete thoughts of the possible situations, and defined the errors in detail.
+
+\newpage
+\section{PRE-DEFINED EXCEPTION}
+Python defined the exception in module "exceptions", this module is automatically imported, 
+normally we don't need to import it. We can use the dir function to check its submodules and functions.
+\begin{lstlisting}
+In [1]: import exceptions
+
+In [2]: dir(exceptions)
+Out[2]: 
+['ArithmeticError',
+ 'AssertionError',
+ 'AttributeError',
+ 'BaseException',
+ 'BufferError',
+ 'BytesWarning',
+ 'DeprecationWarning',
+ 'EOFError',
+ 'EnvironmentError',
+ 'Exception',
+ 'FloatingPointError',
+ 'FutureWarning',
+ 'GeneratorExit',
+ 'IOError',
+ 'ImportError',
+ 'ImportWarning',
+ 'IndentationError',
+ 'IndexError',
+ 'KeyError',
+ 'KeyboardInterrupt',
+ 'LookupError',
+ 'MemoryError',
+ 'NameError',
+ 'NotImplementedError',
+ 'OSError',
+ 'OverflowError',
+ 'PendingDeprecationWarning',
+ 'ReferenceError',
+ 'RuntimeError',
+ 'RuntimeWarning',
+ 'StandardError',
+ 'StopIteration',
+ 'SyntaxError',
+ 'SyntaxWarning',
+ 'SystemError',
+ 'SystemExit',
+ 'TabError',
+ 'TypeError',
+ 'UnboundLocalError',
+ 'UnicodeDecodeError',
+ 'UnicodeEncodeError',
+ 'UnicodeError',
+ 'UnicodeTranslateError',
+ 'UnicodeWarning',
+ 'UserWarning',
+ 'ValueError',
+ 'Warning',
+ 'ZeroDivisionError',
+ '__doc__',
+ '__name__',
+ '__package__']
+\end{lstlisting}
+The dir function listed all the pre-defined exceptions in python, 
+and we can use "\_\_bases\_\_" property to check the hierarchy.
+\begin{lstlisting}
+In [3]: ValueError.__bases__
+Out[3]: (StandardError,)
+\end{lstlisting}
+In this example, the ValueError is derived from StandardError. 
+And this is the python pre-defined exception hierarchy:
+\begin{lstlisting}
+BaseException
+ +-- SystemExit
+ +-- KeyboardInterrupt
+ +-- GeneratorExit
+ +-- Exception
+      +-- StopIteration
+      +-- StandardError
+      |    +-- BufferError
+      |    +-- ArithmeticError
+      |    |    +-- FloatingPointError
+      |    |    +-- OverflowError
+      |    |    +-- ZeroDivisionError
+      |    +-- AssertionError
+      |    +-- AttributeError
+      |    +-- EnvironmentError
+      |    |    +-- IOError
+      |    |    +-- OSError
+      |    |         +-- WindowsError (Windows)
+      |    |         +-- VMSError (VMS)
+      |    +-- EOFError
+      |    +-- ImportError
+      |    +-- LookupError
+      |    |    +-- IndexError
+      |    |    +-- KeyError
+      |    +-- MemoryError
+      |    +-- NameError
+      |    |    +-- UnboundLocalError
+      |    +-- ReferenceError
+      |    +-- RuntimeError
+      |    |    +-- NotImplementedError
+      |    +-- SyntaxError
+      |    |    +-- IndentationError
+      |    |         +-- TabError
+      |    +-- SystemError
+      |    +-- TypeError
+      |    +-- ValueError
+      |         +-- UnicodeError
+      |              +-- UnicodeDecodeError
+      |              +-- UnicodeEncodeError
+      |              +-- UnicodeTranslateError
+      +-- Warning
+           +-- DeprecationWarning
+           +-- PendingDeprecationWarning
+           +-- RuntimeWarning
+           +-- SyntaxWarning
+           +-- UserWarning
+           +-- FutureWarning
+	   +-- ImportWarning
+	   +-- UnicodeWarning
+	   +-- BytesWarning
+\end{lstlisting}
+Based on the hierarchy tree, we can know the error type we want to catch, and the relationship of the exceptions.
+Most non-system-exiting exception we used is derived from the "Exception" class. 
+The "Exception" class has 2 very useful properties, args and message.
+\begin{lstlisting}
+In [7]: dir(Exception)
+Out[7]: 
+['__class__',
+ '__delattr__',
+ '__dict__',
+ '__doc__',
+ '__format__',
+ '__getattribute__',
+ '__getitem__',
+ '__getslice__',
+ '__hash__',
+ '__init__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__setstate__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ '__unicode__',
+ 'args',
+ 'message']
+\end{lstlisting}
+We can raise an exception with args and message.
+\begin{lstlisting}
+In [5]: verr = ValueError(True, 10, "This is an error")
+In [6]: verr.args
+Out[6]: (True, 10, 'This is an error')
+
+In [9]: verr = ValueError("Oops, Value Error")
+In [10]: verr.message
+Out[10]: 'Oops, Value Error'
+\end{lstlisting}
+
+
+\newpage
+\section{USER-DEFINED EXCEPTION}
+This is an example of using an instance of Exception as user-defined exception:
+\begin{lstlisting}
+In [12]: failure1 = {"code":0x31, "message":"IDD High"}
+
+In [13]: try:
+    ...:     raise Exception(failure1["code"], failure1["message"])
+    ...: except Exception as ex:
+    ...:     print ex.args
+    ...: 
+(49, 'IDD High')
+\end{lstlisting}
+We can also have a user-defined class to raise the same type exceptions:
+\begin{lstlisting}
+In [22]: class DUTError(Exception):
+    ...:     def __init__(self, **kvargs):
+    ...:         self.code = kvargs.get('code', 0)
+    ...:         self.message = kvargs.get('message', 'undefined error message')
+    ...:     def __str__(self):
+    ...:         return repr(self.message)
+    ...: 
+
+In [23]: try:
+    ...:     raise DUTError(code=0x31, message="IDD High")
+    ...: except Exception as ex:
+    ...:     print ex.code, ex.message
+    ...: 
+49 IDD High
+\end{lstlisting}
+After we defined the DUTError, we can add instances:
+\begin{lstlisting}
+IDD_HIGH = DUTError(code=0x31, message="Maximum IDD is out of range")
+IDD_LOW  = DUTError(code=0x32, message="Minimum IDD is out of range")
+\end{lstlisting}
+
+\newpage
+\section{TRACE THE EXCEPTION}
+We can use 2 python intergrated module "sys" and "traceback" to track the exception.
+\begin{lstlisting}
+In [25]: import sys
+In [26]: import traceback
+
+In [27]: try:
+    ...:     open("not_existing.file", "r")
+    ...: except Exception as ex:
+    ...:     exc_type, exc_value, exc_traceback = sys.exc_info()
+    ...:     print traceback.format_exception(exc_type, exc_value, exc_traceback)
+    ...: 
+['Traceback (most recent call last):\n', u'  File "<ipython-input-27-d9ad7fa44960>", line 2, in <module>\n    open("not_exsist.file", "r")\n', "IOError: [Errno 2] No such file or directory: 'not_exsist.file'\n"]
+\end{lstlisting}
+In this example, we raise a "file not existing" error, and we use 2 functions \verb|sys.exc_info()| and \\ \verb|traceback.format_exception()| to track and analyze the exception.
+And then we can save the message to a log file.
+
+\newpage
+\section{BEST PRACTISE}
+\begin{lstlisting}
+#!/usr/bin/env python
+# encoding: utf-8
+
+
+import os
+import logging
+import sys
+import traceback
+
+
+class LOG(object):
+
+    def __init__(self, LOG_FILE="error.log"):
+        if os.path.isfile(LOG_FILE):
+            os.remove(LOG_FILE)     # remove the log file
+
+        self.logger = logging.getLogger()
+        hdlr = logging.FileHandler(LOG_FILE)
+        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+        hdlr.setFormatter(formatter)
+        self.logger.addHandler(hdlr)
+        self.logger.setLevel(logging.NOTSET)
+
+    def save(self, Message):
+        self.logger.error(Message)
+
+
+class DUTError(Exception):
+
+    def __init__(self, **kvargs):
+        self.code = kvargs.get('code', 0)
+        self.message = kvargs.get('message', "undefined error message")
+
+    def __str__(self):
+        return repr(self.message)
+
+
+class Errors(object):
+    IDD_HIGH = DUTError(code=0x31, message="Maximum IDD is out of range")
+    IDD_LOW = DUTError(code=0x32, message="Minimum IDD is out of range")
+
+
+if __name__ == "__main__":
+    log = LOG()
+    try:
+        # test code, dut fail
+        # raise Errors.IDD_LOW
+        1 / 0
+    except DUTError as e:
+        # save test fail
+        print "Test Fail:" + str(e.code) + ":" + e.message
+    except Exception:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        msg = traceback.format_exception(exc_type, exc_value, exc_traceback)
+        log.save(msg)
+
+\end{lstlisting}
+%------------------------------------ %
+%                                     %
+%--------END OF YOUR MEMO HERE------- %
+%                                     %
+%------------------------------------ %
+
+\end{document}
+%***********************************************************************************************
+% Document End
+%***********************************************************************************************

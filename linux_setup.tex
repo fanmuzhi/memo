@@ -1,0 +1,428 @@
+%***********************************************************************************************
+% Memo Micro SETTINGS
+%***********************************************************************************************
+\newcommand{\WorkWeek}{1322} % Current Work Week (later we should write a script to decide this)
+\newcommand{\BossName}{Arden Chang} % Boss's Name
+\newcommand{\BossInitials}{ARDN} % Boss's Initials
+\newcommand{\Author}{Qiling Bo} % Author's Name
+\newcommand{\AuthorInitials}{QIBO} % Author's Cypress Initials
+\newcommand{\MemoNumber}{112} % Memo number
+\newcommand{\Subject}{AUTOMATION DEPLOYMENT OF DEVELOPMENT ENVIROMENT} % Subject of the memo
+\newcommand{\Category}{trackpad, manufacturing test} % Keywords for the memo
+\newcommand{\Distribution}{PZHO, MZFA, WEIQ, ARDN, RQB, BMOCHINA} % Distribution list for the memo
+
+%***********************************************************************************************
+% Rules
+%***********************************************************************************************
+
+% The following characters play a special role in LaTeX:
+%
+%        # $ % & ~ _ ^ \ { }
+%
+%If you simply want the character to be printed just as any other letter, 
+%include a \ in front of the character. For example, \$ will produce $ in your output. 
+
+%***********************************************************************************************
+% Document SETTINGS
+%***********************************************************************************************
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx} % Required to insert images
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{hyperref} % For hyper link
+\usepackage{float}
+\setlength{\headheight}{11pt}
+\usepackage{subfigure}
+
+
+%***********************************************************************************************
+% Make Title
+%***********************************************************************************************
+\renewcommand{\maketitle}
+{
+%   \\
+%   \vspace{-1.25 in}
+    \begin{center}
+    \includegraphics[width=2.5in]{CY.jpg}\\
+    \vspace{5 mm}
+    \large
+    {
+    \textbf{CYPRESS SEMICONDUCTOR CORPORATION}\\
+    \textbf{Internal Correspondence}\\
+    }
+    \vspace{1 mm}
+    \hspace{0.5 in}
+    \begin{tabular}{rl}
+    \bf Date: & \today\ \hspace{2 in}\textbf{WW:\ }\WorkWeek\\
+    \bf To: & \BossName\ (\BossInitials)\\
+    \bf Author: & \Author\ (\AuthorInitials)\\
+    \bf Author File \#: & \AuthorInitials\#\MemoNumber\\
+    \bf Subject: & \Subject\\
+    \bf Category: & \Category\\
+    \bf Distribution: & \Distribution\\
+    \end{tabular}
+    \vspace{3 mm}\\
+    \hrule
+    \end{center}
+    
+    \thispagestyle{firstpage}
+    \pagestyle{normalpage}
+}
+
+
+%***********************************************************************************************
+% Font
+%***********************************************************************************************
+% - Helvetica
+%\usepackage[scaled]{helvet}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+%\usepackage[T1]{fontenc}
+
+% - Times
+%\usepackage{fontspec}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+%\setmonofont{DejaVu Sans Mono}
+
+%***********************************************************************************************
+% Custom Color
+%***********************************************************************************************
+\definecolor{gray}{rgb}{0.9,0.9,0.9} %for source code display
+\definecolor{dkgreen}{rgb}{0.1333,0.5451,0.1333}
+
+%***********************************************************************************************
+% Header and Footer
+%***********************************************************************************************
+\usepackage{fancyhdr} % Required for custom headers
+
+\fancypagestyle{firstpage}{%
+  
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{\small{\bf{\thepage}}}
+  \fancyfoot[R]{\Author\ (\AuthorInitials)}
+  \renewcommand{\headrulewidth}{0.0pt}%
+}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{normalpage}{%
+  
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[C]{\small{\Subject}}
+    \fancyfoot[L]{\small{\bf{\thepage}}}
+    \fancyfoot[R]{\Author\ (\AuthorInitials)}
+    
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    
+    \renewcommand{\headsep}{25pt}
+}
+
+%\AtBeginDocument{
+%    \thispagestyle{firstpage}
+%    }
+
+%***********************************************************************************************
+% Source code display Setting
+%***********************************************************************************************
+\usepackage{listings}
+\usepackage{courier}
+
+\lstloadlanguages{Python}
+\lstset{
+     language=Python,
+     keywords={from,import,break,case,catch,continue,else,elseif,end,for,def,global,if,otherwise,persistent,return,switch,try,not,while,True,False,in},
+     basicstyle=\footnotesize\ttfamily,
+     tabsize=2,                   
+     extendedchars=true,         
+     breaklines=true,            
+     keywordstyle=\color{blue},
+     frame=none,                    % tb-for top and bottom, single-for around         
+     stringstyle=\color{red}\ttfamily, 
+     commentstyle=\color{dkgreen},
+     backgroundcolor=\color{gray},
+     showspaces=false,           
+     showtabs=false,             
+     xleftmargin=17pt,
+     framexleftmargin=17pt,
+     framexrightmargin=5pt,
+     framexbottommargin=4pt,     
+     showstringspaces=false 
+}
+% Creates a new command to include a C source, the first parameter is the filename of the script (without .c), the second parameter is the caption
+\newcommand{\PythonSource}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+\end{itemize}
+}
+
+%***********************************************************************************************
+% Figure 
+%***********************************************************************************************
+%\MySubFigureTwo{./data/IDAC_hist.pdf}{./data/IDAC_hist_2.pdf}{Dynamic}{HuaXin}{0.2in}{IDAC
+%Histogram}{fig1}{0.5}
+\newcommand{\MySubFigureTwo}[8]
+{
+    \vspace{#5}
+    \begin{figure}[H]
+    \centering
+    \subfigure[#3]
+    {
+        \includegraphics[scale=#8]{#1}
+        \label{fig:a#7}
+    }
+    \subfigure[#4]
+    {
+        \includegraphics[scale=#8]{#2}
+        \label{fig:b#7}
+    }
+    \caption[#6]{#6}
+    \label{fig:#7}
+    \end{figure}
+}
+
+
+%***********************************************************************************************
+% Document Begin
+%***********************************************************************************************
+\begin{document}
+
+\maketitle
+
+%------------------------------------ %
+%                                     %
+%--------START YOUR MEMO HERE-------- %
+%                                     %
+%------------------------------------ %
+\section{INTRODUCTION}
+This memo documented the script the test group used to automatically deploy the development environment.
+We used to develop softwares, setup softwares on our laptops, and setup softwares and release softwares on our test machines or servers.
+Sometime we did a change on the test machine, to make it work or to make it wok faster, but after a while we forgot what we did. 
+And sometime we want a new test machine works just like the old one, but we are too lazy to remember all the settings of the old one and repeat on the new one.
+So we introduced the automated deployment tool.\\
+For Windows 7, we can use:
+\begin{itemize}
+    \item
+    Windows Automated Installation Kit.    
+    http://www.microsoft.com/en-us/download/details.aspx?id=5753
+    \item
+    puppet. 
+    http://docs.puppetlabs.com/windows/index.html 
+    \item
+    chef.
+    http://wiki.opscode.com/display/chef/Fast+Start+Guide+for+Windows
+\end{itemize}
+For Linux, we can use:
+\begin{itemize}
+    \item
+    puppet. Most popular deployment tool on Linux. 
+    https://puppetlabs.com/
+    \item
+    chef. 
+    http://gettingstartedwithchef.com/ 
+    \item
+    fabric. Written by python, light and flexible tool.
+\end{itemize}
+From the compare of each tool, it will be good to choose puppet or chef, but since their steep learning curve,
+in this memo, we used fabric to automatically deploy the environment on a CentOS 64 Mini, we can use the script in appendix to setup the test logs database in several minutes.
+
+\section{BASIC KNOWLEDGE}
+Before we start run the script, we need install the operation system and make the network available, so we can deploy the environment by remote ssh connection.
+\subsection{Setup Console Resolution}
+The default resolution of console is 640*480, we can change it by editing the grub.conf.
+\begin{lstlisting}
+$vi /boot/grub/grub.conf
+\end{lstlisting}
+Add \verb/vga=791/ to the bottom 2 line, before the initrd. The file looks like:
+\begin{lstlisting}
+kernel /vmlinuz-2.6.18-53.1.19.el5PAE ro root=/dev/VolGroup00/LogVol00 console=ttyS0,57600 console=tty0 vga=791
+    initrd /initrd-2.6.18-53.1.19.el5PAE.img
+\end{lstlisting}
+And the 791 stand for resolution 1024*768, refer to:
+\begin{lstlisting}
+791 - 1024x768,  16 bit
+792 - 1024x768,  24 bit
+794 - 1280x1024, 16 bit
+795 - 1280x1024, 24 bit
+\end{lstlisting}
+
+\subsection{Runlevel and Automatic Start Service}
+CentOS defines 7 run levels. 
+\begin{itemize}
+    \item
+    Runlevel 0 - The halt runlevel. This is the runlevel at which the system shuts down. For obvious reasons it is unlikely you would want this as your default runlevel. 
+    \item
+    Runlevel 1 - Causes the system to start up in a single user mode under which only the root user can log in. In this mode the system does not start any networking, X windowing or multi-user services. This run level is ideal for system administrators to perform system maintenance or repair activities. 
+    \item
+    Runlevel 2 - Boots the system into a multi-user mode with text based console login capability. This runlevel does not, however, start the network. 
+    \item
+    Runlevel 3 - Similar to runlevel 2 except that networking services are started. This is the most common runlevel for server based systems that do not require any kind of graphical desktop environment. 
+    \item
+    Runlevel 4 - Undefined runlevel. This runlevel can be configured to provide a custom boot state. 
+    \item
+    Runlevel 5 - Boots the system into a networked, multi-user state with X Window System capability. By default the graphical desktop environment will start at the end of the boot process. This is the most common run level for desktop or workstation use. 
+    \item
+    Runlevel 6 - Reboots the system. Another runlevel that, for obvious reasons, you are unlikely to want as your default. 
+\end{itemize}
+We can check and edit the default run level:
+\begin{lstlisting}
+$vi /etc/inittab
+
+~
+id:3:initdefault
+~
+\end{lstlisting}
+We can change the run level by:
+\begin{lstlisting}
+$init 5
+\end{lstlisting}
+For automatic start service for each run level, we can use chkconfig command, type:
+\begin{lstlisting}
+$chkconfig --list
+\end{lstlisting}
+If the service is in the list, we can use chkconfig to turn it on and off, and we can define the on and off for particular run level, for example:
+\begin{lstlisting}
+$chkconfig mysqld on
+
+$chkconfig --level 3 httpd on
+\end{lstlisting}
+
+\subsection{Setup Network}
+Config files for computer in our network.
+\begin{itemize}
+    \item
+    /etc/sysconfig/network-scripts/ifcfg-eth0
+    \begin{lstlisting}
+    DEVICE=eth0
+    BOOTPROTO=static
+    HWADDR=00:25:90:0E:12:94
+    IPADDR=172.23.6.12
+    NETMASK=255.255.255.0
+    GATEWAY=172.23.6.3
+    NM_CONTROLLED=yes
+    ONBOOT=yes
+    TYPE=Ethernet
+    UUID=7617d273-da4d-4287-87df-f74467286b66
+    \end{lstlisting}
+    \item
+    /etc/sysconfig/network
+    \begin{lstlisting}
+    NETWORKING=yes
+    HOSTNAME=BMOCHINA
+    GATEWAY=172.23.6.3
+    \end{lstlisting}
+    \item
+    /etc/resolv.conf
+    \begin{lstlisting}
+    nameserver 172.23.5.62
+    nameserver 172.23.5.63
+    \end{lstlisting}
+\end{itemize}
+After change the config files, we need start or restart the network.
+\begin{lstlisting}
+$service network restart
+\end{lstlisting}
+Then we can use the ifconfig to check the network status.
+\begin{lstlisting}
+$ifconfig
+
+eth0      Link encap:Ethernet  HWaddr 3c:97:0e:5b:55:c5  
+          inet addr:172.23.6.12  Bcast:172.23.6.255  Mask:255.255.255.0
+          inet6 addr: fe80::3e97:eff:fe5b:55c5/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:3223261 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:111765 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:580859244 (580.8 MB)  TX bytes:13407651 (13.4 MB)
+          Interrupt:20 Memory:f2500000-f2520000 
+\end{lstlisting}
+
+\subsection{Setup Iptables}
+Before we start the network, another thing we need to do is enable and disable the ports, by config file, /etc/sysconfig/iptables.\\
+Here is an example:
+\begin{lstlisting}
+$iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT
+\end{lstlisting}
+This command will allow the tcp protocol connection input from port 3306, the state is NEW.
+We can set the other ports like this, for example, 80, 22.\\
+After we export the rules, we need save the rules, and restart the iptables.
+\begin{lstlisting}
+$service iptables save 
+$service iptables restart 
+\end{lstlisting}
+
+\subsection{Setup Tool:rsync}
+rysnc is a tool to copy or sync files between 2 machines, 2 folder in 1 machine, or hard disk and USB disk.\\
+\begin{itemize}
+    \item
+    Copy file or folder from local to remote. For example, copy local file to remote machine with IP address"192.168.0.1", put the file in root's home directory.\\
+    \begin{lstlisting}
+    $rsync -v -e ssh /path/to/file root@192.168.0.1:~
+    \end{lstlisting}
+    \item
+    Copy file or folder from remote to local. For example, copy remote file test.txt in root's home directory, and paste to local tmp folder. 
+    \begin{lstlisting}
+    $rsync -v -e ssh root@192.168.0.1:~/test.txt /tmp 
+    \end{lstlisting}
+    \item
+     Synchronize a local directory with a remote directory. Keep the local files the same as remote, the extra files will be deleted. 
+    \begin{lstlisting}
+    $rsync -r -a -v -e "ssh -l root" --delete /local/path/tmp 192.168.0.1:/tmp
+    \end{lstlisting}
+    \item
+    Synchronize a remote directory with a local directory. Keep the remote files the same as local, the extra files will be deleted. 
+    \begin{lstlisting}
+    $rsync -r -a -v -e "ssh -l root" --delete 192.168.0.1:/tmp /local/path/tmp
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{Setup SELinux}
+Security-Enhanced Linux (SELinux) is a Linux feature that provides the mechanism for supporting access control security policies.
+SELinux will cause a lot of unexpected authorization failure, but we recommend to turn it on for the safety consideration.\\ 
+We can get the status of SELinux by command:
+\begin{lstlisting}
+$getenforce
+
+Enforcing
+\end{lstlisting}
+"Enforcing" is the default mode, "Permissive" is used for troubleshooting, and "Disabled" is SElinux turned off.
+We can set the status of SELinux to "Enforcing"(1) and "Permissive"(0) by command:
+\begin{lstlisting}
+$setenforce 0
+$getenforce
+
+Permissive
+\end{lstlisting}
+Get SELinux booleans value by:
+\begin{lstlisting}
+$getsebool -a
+\end{lstlisting}
+For the test logs database, we enable the httpd to connect to the database and memcache.
+\begin{lstlisting}
+$setsebool -P httpd_can_network_connect 1
+$setsebool -P httpd_can_network_connect_db 1
+$setsebool -P httpd_can_network_memcache 1
+$setsebool -P httpd_can_network_relay 1
+\end{lstlisting}
+If we are still have problem with SELinux with other access authorization, we can check the log file at:
+\begin{lstlisting}
+$vi /var/log/audit/audit.log
+\end{lstlisting}
+
+\section{APPENDIX}
+\PythonSource{./fabfile}{Fabric demo script for CentOS 64 Mini}
+%------------------------------------ %
+%                                     %
+%--------END OF YOUR MEMO HERE------- %
+%                                     %
+%------------------------------------ %
+
+\end{document}
+%***********************************************************************************************
+% Document End
+%***********************************************************************************************

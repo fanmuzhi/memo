@@ -1,0 +1,505 @@
+%***********************************************************************************************
+% Memo Micro SETTINGS
+%***********************************************************************************************
+\newcommand{\WorkWeek}{1339} % Current Work Week (later we should write a script to decide this)
+\newcommand{\BossName}{Arden Chang} % Boss's Name
+\newcommand{\BossInitials}{ARDN} % Boss's Initials
+\newcommand{\Author}{Qiling Bo} % Author's Name
+\newcommand{\AuthorInitials}{QIBO} % Author's Cypress Initials
+\newcommand{\MemoNumber}{118} % Memo number
+\newcommand{\Subject}{PACKAGE AND DEPLOY PYTHON PROJECT TO WINDOWS OS} % Subject of the memo
+\newcommand{\Category}{trackpad, manufacturing test} % Keywords for the memo
+\newcommand{\Distribution}{PZHO, MZFA, WEIQ, ARDN, RQB, BMOCHINA} % Distribution list for the memo
+
+%***********************************************************************************************
+% Rules
+%***********************************************************************************************
+
+% The following characters play a special role in LaTeX:
+%
+%        # $ % & ~ _ ^ \ { }
+%
+%If you simply want the character to be printed just as any other letter, 
+%include a \ in front of the character. For example, \$ will produce $ in your output. 
+
+%***********************************************************************************************
+% Document SETTINGS
+%***********************************************************************************************
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{graphicx} % Required to insert images
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{hyperref} % For hyper link
+\usepackage{float}
+\setlength{\headheight}{11pt}
+\usepackage{subfigure}
+
+
+%***********************************************************************************************
+% Make Title
+%***********************************************************************************************
+\renewcommand{\maketitle}
+{
+%   \\
+%   \vspace{-1.25 in}
+    \begin{center}
+    \includegraphics[width=2.5in]{CY.jpg}\\
+    \vspace{5 mm}
+    \large
+    {
+    \textbf{CYPRESS SEMICONDUCTOR CORPORATION}\\
+    \textbf{Internal Correspondence}\\
+    }
+    \vspace{1 mm}
+    \hspace{0.5 in}
+    \begin{tabular}{rl}
+    \bf Date: & \today\ \hspace{2 in}\textbf{WW:\ }\WorkWeek\\
+    \bf To: & \BossName\ (\BossInitials)\\
+    \bf Author: & \Author\ (\AuthorInitials)\\
+    \bf Author File \#: & \AuthorInitials\#\MemoNumber\\
+    \bf Subject: & \Subject\\
+    \bf Category: & \Category\\
+    \bf Distribution: & \Distribution\\
+    \end{tabular}
+    \vspace{3 mm}\\
+    \hrule
+    \end{center}
+    
+    \thispagestyle{firstpage}
+    \pagestyle{normalpage}
+}
+
+
+%***********************************************************************************************
+% Font
+%***********************************************************************************************
+% - Helvetica
+%\usepackage[scaled]{helvet}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+%\usepackage[T1]{fontenc}
+
+% - Times
+%\usepackage{fontspec}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+%\setmonofont{DejaVu Sans Mono}
+
+%***********************************************************************************************
+% Custom Color
+%***********************************************************************************************
+\definecolor{gray}{rgb}{0.9,0.9,0.9} %for source code display
+\definecolor{dkgreen}{rgb}{0.1333,0.5451,0.1333}
+
+%***********************************************************************************************
+% Header and Footer
+%***********************************************************************************************
+\usepackage{fancyhdr} % Required for custom headers
+
+\fancypagestyle{firstpage}{%
+  
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{\small{\bf{\thepage}}}
+  \fancyfoot[R]{\Author\ (\AuthorInitials)}
+  \renewcommand{\headrulewidth}{0.0pt}%
+}
+
+%\pagestyle{fancy}
+
+\fancypagestyle{normalpage}{%
+  
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[C]{\small{\Subject}}
+    \fancyfoot[L]{\small{\bf{\thepage}}}
+    \fancyfoot[R]{\Author\ (\AuthorInitials)}
+    
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    
+    \renewcommand{\headsep}{25pt}
+}
+
+%\AtBeginDocument{
+%    \thispagestyle{firstpage}
+%    }
+
+%***********************************************************************************************
+% Source code display Setting
+%***********************************************************************************************
+\usepackage{listings}
+\usepackage{courier}
+
+\lstloadlanguages{Python}
+\lstset{
+     language=Python,
+     keywords={from,import,break,case,catch,continue,else,elseif,end,for,def,global,if,otherwise,persistent,return,switch,try,not,while,True,False,in},
+     basicstyle=\footnotesize\ttfamily,
+     tabsize=2,                   
+     extendedchars=true,         
+     breaklines=true,            
+     keywordstyle=\color{blue},
+     frame=none,                    % tb-for top and bottom, single-for around         
+     stringstyle=\color{red}\ttfamily, 
+     commentstyle=\color{dkgreen},
+     backgroundcolor=\color{gray},
+     showspaces=false,           
+     showtabs=false,             
+     xleftmargin=17pt,
+     framexleftmargin=17pt,
+     framexrightmargin=5pt,
+     framexbottommargin=4pt,     
+     showstringspaces=false 
+}
+% Creates a new command to include a C source, the first parameter is the filename of the script (without .c), the second parameter is the caption
+\newcommand{\PythonSource}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+\end{itemize}
+}
+
+%***********************************************************************************************
+% Figure 
+%***********************************************************************************************
+%\MySubFigureTwo{./data/IDAC_hist.pdf}{./data/IDAC_hist_2.pdf}{Dynamic}{HuaXin}{0.2in}{IDAC
+%Histogram}{fig1}{0.5}
+\newcommand{\MySubFigureTwo}[8]
+{
+    \vspace{#5}
+    \begin{figure}[H]
+    \centering
+    \subfigure[#3]
+    {
+        \includegraphics[scale=#8]{#1}
+        \label{fig:a#7}
+    }
+    \subfigure[#4]
+    {
+        \includegraphics[scale=#8]{#2}
+        \label{fig:b#7}
+    }
+    \caption[#6]{#6}
+    \label{fig:#7}
+    \end{figure}
+}
+
+
+%***********************************************************************************************
+% Document Begin
+%***********************************************************************************************
+\begin{document}
+
+\maketitle
+
+%------------------------------------ %
+%                                     %
+%--------START YOUR MEMO HERE-------- %
+%                                     %
+%------------------------------------ %
+\section{INTRODUCTION}
+This memo documented the method to quickly deploy the python programs from our development machine to our target machine.
+We suppose the target machine is Windows OS without internet network connection, 
+like the PCs used in our manufacturing line or any PCs behind China firewall.
+And the development machine can be any OS we prefer.
+First, we need understand the several basic python libraries:
+\begin{itemize}
+    \item
+    \textbf{setuptools} 
+    \item
+    \textbf{distribute} 
+    \item
+    \textbf{easy\_install} 
+    \item
+    \textbf{pip} 
+    \item
+    \textbf{virtualenv} 
+\end{itemize}
+The detail information for python module distribution can refer to:
+\begin{lstlisting}
+http://docs.python.org/2/distutils/index.html 
+\end{lstlisting}
+And we can download windows msi installation files for above packages from:
+\begin{lstlisting}
+http://www.lfd.uci.edu/~gohlke/pythonlibs/
+\end{lstlisting}
+
+\newpage
+\section{BEST PRACTISE}
+\subsection{Development Machine}
+\begin{itemize}
+\item
+We need setup the virtual environment and test our code, so first, install the virtualenv.
+\begin{lstlisting}
+pip install virtualenv
+virtualenv --help
+\end{lstlisting}
+\item
+Before we start the virtualenv, we can use pip command to check the default system packages.
+\begin{lstlisting}
+pip list
+\end{lstlisting}
+All installed packages of system will be listed.
+\item
+Then we can create the source code dir, and start virtual environment.
+\begin{lstlisting}
+mkdir myproject
+virtualenv --no-site-packages myproject 
+cd myproject
+source bin/activate
+\end{lstlisting}
+For Windows, I recommend to use PowerShell to start the virtualenv. First we need allow the PowerShell to execute scripts.
+\begin{lstlisting}
+PS C:\>get-executionpolicy                  # return the status of current script policy
+Restricted
+PS C:\>set-executionpolicy remotesigned     # set the script policy
+PS C:\my_project\Scripts\>activate.ps1      # run the activate ps
+\end{lstlisting}
+\item
+Now we are in the myproject virtual environment. We can use command deactivate to quit.
+\begin{lstlisting}
+deactivate
+\end{lstlisting}
+\item
+We can use the pip command to check the dependencies again.
+\begin{lstlisting}
+pip list
+\end{lstlisting}
+\item
+We can make a dir of source, and copy all source code files to "myproject/" under myproject.
+And we can test the code, install the dependencies until the everything works OK under the virtual environment. \\
+The dir structure looks like:
+\begin{lstlisting}
+--myproject
+    |------bin/                     # dir of virtualenv, auto generated
+    |------include/                 # dir of virtualenv, auto generated
+    |------local/                   # dir of virtualenv, auto generated
+    |------myproject/               # dir of own project 
+            |--------__ini__.py
+            |--------mysource.py
+            |--------...
+    |------requirments.txt          # pip generated file for dependencies
+    |------setup.py                 # setup file for build egg
+    |------README.md                # read me file
+    |------dist/                    # dir of build egg, auto generated
+    |------build/                   # dir of build egg, auto generated
+\end{lstlisting}
+\item
+Now we can save the dependencies information into "requirements.txt". And we choose to bundle all the dependencies into a bundle file.
+\begin{lstlisting}
+pip freeze > requirements.txt
+pip bundle myproject.pybundle -r requirements.txt
+\end{lstlisting}
+\item
+Python called the project package "egg", like the ".deb" or ".rpm" packages to Linux software. 
+To pack our own project "myproject" into an egg, we need create a setup.py file in the main dir.
+The content in setup.py, for example:
+\begin{lstlisting}
+#!/usr/bin/env python
+# encoding: utf-8
+
+from setuptools import setup
+
+setup(
+    name="myproject",
+    version="0.1",
+    packages=["myproject", 
+              "myproject/subproject"],
+    package_data={'': ['*.dll', '*.so']},
+    author='qibo',
+    author_email='qibo@cypress.com',
+    description='short description',
+    long_description='long description',
+    platforms='any',
+    install_requires=[
+        'numpy>=0.7',
+        'matplotlib>=2.4',
+    ]
+    entry_points={
+        "console_scripts": [
+            'mpj = myproject.subproject:main'
+        ]
+)
+\end{lstlisting}
+The package\_data will include the files "*.dll" and "*.so". 
+And we define a automation executable sript name "mpj", pointed to main function in myproject.subproject.
+\item
+For Eclipse user, PyDev will automatically create a "src" folder, and put the fold into the eviroment path. So we can create the dir structure like this:
+\begin{lstlisting}
+--myproject
+    |------bin/                     # dir of virtualenv, auto generated
+    |------include/                 # dir of virtualenv, auto generated
+    |------local/                   # dir of virtualenv, auto generated
+    |------src/
+           |-----myproject/               # dir of own project 
+                 |------__ini__.py
+                 |------mysource.py
+                 |------...
+    |------requirments.txt          # pip generated file for dependencies
+    |------setup.py                 # setup file for build egg
+    |------README.md                # read me file
+    |------dist/                    # dir of build egg, auto generated
+    |------build/                   # dir of build egg, auto generated
+\end{lstlisting}
+\item
+And add "src" path in the setup.py file, for example:
+\begin{lstlisting}
+#!/usr/bin/env python
+# encoding: utf-8
+
+from setuptools import setup
+import sys
+
+sys.path.append('src')
+
+setup(
+    name="myproject",
+    version="0.1",
+    packages_dir={'':'src'},
+    packages=["myproject",
+              "myproject/subproject"],
+    package_data={'': ['*.dll', '*.so']},
+    author='qibo',
+    author_email='qibo@cypress.com',
+    description='short description',
+    long_description='long description',
+    platforms='any',
+    install_requires=[
+        'numpy>=0.7',
+        'matplotlib>=2.4',
+    ]
+    entry_points={
+        "console_scripts": [
+            'mpj = myproject.subproject:main'
+        ]
+)
+\end{lstlisting}
+\item
+Now we can pack our own project into an .egg.
+\begin{lstlisting}
+python setup.py bdist_egg
+\end{lstlisting}
+\item
+And also we can generate the source code package, or the windows .exe file.
+\begin{lstlisting}
+python setup.py bdist_egg       # egg file
+python setup.py bdist_wininst   # windows .exe file
+python setup.py sdist           # source code zip file
+\end{lstlisting}
+The released file will automatically generated in 'dist' fold.
+\end{itemize}
+
+\newpage
+\subsection{Absolute Import}
+It is strongly recommended to change the relative import to absolute import in source code.
+For example, the source code structure of myproject:
+\begin{lstlisting}
+|-----myproject/               # dir of own project 
+      |----packageA/
+            |------__ini__.py
+            |------moduleA.py
+            |------moduleX.py
+            |------...
+      |----packageB/
+            |------__ini__.py
+            |------moduleB.py
+            |------...
+\end{lstlisting}
+In moduleX.py, we want to import moduleA and moduleB, \\
+for relative mode: 
+\begin{lstlisting}
+import .moduleA
+import ..packageB.moduleB
+\end{lstlisting}
+for absolute mode (recommended):
+\begin{lstlisting}
+from myproject.packageA import moduleA
+from myproject.packageB import moduleB
+\end{lstlisting}
+And for dll files, for absolute mode, we need get the absolute path first, for example, the driver of aardvark device, 
+it contains 2 files, aardvark\_py.py and aardvark.dll, in aardvark\_py.py, we need load aardvark.dll. So we put the 2 files in one directory, and load the dll like this:
+\begin{lstlisting}
+import os
+import sys
+import inspect
+
+# get current file's absolute path
+dll_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+# load the driver program from the absolute path
+api = imp.load_dynamic('aardvark', dll_path + '/aardvark' + ext)
+\end{lstlisting}
+After changed to absolute mode, we need add the source path to PYTHONPATH under current virtualenv. For example, we have myproject v1.0 installed in our system, 
+but we are debugging the myproject v1.1, we don't want the script will call the v1.0 instead of v1.1, so we need:
+\begin{itemize}
+    \item
+    Start Virutalevn.
+    For Windows:
+    \begin{lstlisting}
+    PS C:\my_project\Scripts\>activate.ps1      # run the activate ps
+    \end{lstlisting}
+    For Linux:
+    \begin{lstlisting}
+    source bin/activate
+    \end{lstlisting}
+    \item
+    Add source path to PYTHONPATH.
+    For Windows:
+    \begin{lstlisting}
+    $env:path="$env:Path;C:\Python27; D:\path\to\mycode;"
+    \end{lstlisting}
+    For Linux:
+    \begin{lstlisting}
+    export PYTHONPATH=$PYTHONPATH:~/path/to/mycode/
+    \end{lstlisting}
+\end{itemize}
+
+\newpage
+\subsection{Target Machine}
+\subsubsection{Install Python Environment}
+\begin{itemize}
+\item
+We need copy all the files to the target machine. We suppose this machine has no python installed.
+\item
+Then, install the original python. Here we choose "python-2.7.5.msi".
+\item
+Then, install the "setuptools-0.7.2.win32-py2.7.exe" and "pip-1.3.1.win32-py2.7.exe".
+\item
+After the installation, we need add installation paths to the environment variables, 
+for example the default installation path, \verb/"C:\Python27\"/ and \verb/"C:\Python27\Scripts\"/.
+\item
+Reboot the machine.Done.
+\end{itemize}
+\subsubsection{Install Our Project}
+\begin{itemize}
+\item
+Now it is very easy to install the dependencies of our project, open a console and type:
+\begin{lstlisting}
+pip install myproject.pybundle
+\end{lstlisting}
+\item
+Install the myproject by double clicking the .exe file.
+After installation, we can open python console, and check:
+\begin{lstlisting}
+import myproject
+dir(myproject)
+\end{lstlisting}
+\item
+Or we can directly run the code in a console by the entry point name,
+in this example, we defined the name, "mpj", so we can type the name directly in console and run. \\
+And done.
+\end{itemize}
+
+
+%------------------------------------ %
+%                                     %
+%--------END OF YOUR MEMO HERE------- %
+%                                     %
+%------------------------------------ %
+
+\end{document}
+%***********************************************************************************************
+% Document End
+%***********************************************************************************************
