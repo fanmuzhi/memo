@@ -149,6 +149,19 @@
 %***********************************************************************************************
 % Figure 
 %***********************************************************************************************
+%\MyFigure{./data/IDAC_hist.pdf}{0.2in}{IDAC_Histogram}{fig1}{0.5}
+\newcommand{\MyFigure}[4]
+{
+    \vspace{#2}
+    \begin{figure}[H]
+        \label{fig:#4}
+        \begin{center}
+            \includegraphics[scale=0.5]{#1}
+            \caption{#3} 
+        \end{center}
+    \end{figure}
+}
+
 %\MySubFigureTwo{./data/IDAC_hist.pdf}{./data/IDAC_hist_2.pdf}{Dynamic}{HuaXin}{0.2in}{IDAC Histogram}{fig1}{0.5}
 \newcommand{\MySubFigureTwo}[8]
 {
